@@ -1,0 +1,131 @@
+const char *	T_PV
+float		T_FLOAT
+uint		T_IV
+WFlags		T_IV
+QRgb		T_IV
+
+QApplication::ColorMode	T_ENUM
+QFont::CharSet		T_ENUM
+QFont::StyleHint	T_ENUM
+QLCDNumber::Mode	T_ENUM
+QPixmap::ColorMode	T_ENUM
+QScrollBar::Orientation	T_ENUM
+QWidget::FocusPolicy	T_ENUM
+
+BGMode		T_ENUM
+GUIStyle	T_ENUM
+BrushStyle	T_ENUM
+PenStyle	T_ENUM
+RasterOp	T_ENUM
+
+QAccel *	Qt_OBJECT
+QApplication *	Qt_OBJECT
+QBitmap *	Qt_OBJECT
+QBrush *	Qt_OBJECT
+QButton *	Qt_OBJECT
+QClipboard *	Qt_OBJECT
+QCloseEvent *	Qt_OBJECT
+QColor *	Qt_OBJECT
+QColorGroup *	Qt_OBJECT
+QCursor *	Qt_OBJECT
+QEvent *	Qt_OBJECT
+QFocusEvent *	Qt_OBJECT
+QFont *		Qt_OBJECT
+QFontInfo *	Qt_OBJECT
+QFontMetrics *	Qt_OBJECT
+QFrame *	Qt_OBJECT
+QKeyEvent *	Qt_OBJECT
+QLabel *	Qt_OBJECT
+QLCDNumber *	Qt_OBJECT
+QMouseEvent *	Qt_OBJECT
+QMoveEvent *	Qt_OBJECT
+QObject *	Qt_OBJECT
+QPaintDevice *	Qt_OBJECT
+QPaintEvent *	Qt_OBJECT
+QPainter *	Qt_OBJECT
+QPalette *	Qt_OBJECT
+QPen *		Qt_OBJECT
+QPicture *	Qt_OBJECT
+QPixmap *	Qt_OBJECT
+QPoint *	Qt_OBJECT
+QPointArray *	Qt_OBJECT
+QPushButton *	Qt_OBJECT
+QRangeControl *	Qt_OBJECT
+QRect *		Qt_OBJECT
+QRegion *	Qt_OBJECT
+QResizeEvent *	Qt_OBJECT
+QScrollBar *	Qt_OBJECT
+QSize *		Qt_OBJECT
+QTimerEvent *	Qt_OBJECT
+QWidget *	Qt_OBJECT
+QWMatrix *	Qt_OBJECT
+
+PApplication *	VQt_OBJECT
+PButton *	VQt_OBJECT
+PFrame *	VQt_OBJECT
+PLabel *	VQt_OBJECT
+PLCDNumber *	VQt_OBJECT
+PObject *	VQt_OBJECT
+PPushButton *	VQt_OBJECT
+PScrollBar *	VQt_OBJECT
+PWidget *	VQt_OBJECT
+
+PAccel *	PQt_OBJECT
+PBitmap *	PQt_OBJECT
+PBrush *	PQt_OBJECT
+PCloseEvent *	PQt_OBJECT
+PColor *	PQt_OBJECT
+PColorGroup *	PQt_OBJECT
+PCursor *	PQt_OBJECT
+PEvent *	PQt_OBJECT
+PFocusEvent *	PQt_OBJECT
+PFont *		PQt_OBJECT
+PFontInfo *	PQt_OBJECT
+PFontMetrics *	PQt_OBJECT
+PKeyEvent *	PQt_OBJECT
+PMouseEvent *	PQt_OBJECT
+PMoveEvent *	PQt_OBJECT
+PPaintDevice *	PQt_OBJECT
+PPainter *	PQt_OBJECT
+PPaintEvent *	PQt_OBJECT
+PPalette *	PQt_OBJECT
+PPen *		PQt_OBJECT
+PPicture *	PQt_OBJECT
+PPixmap *	PQt_OBJECT
+PPoint *	PQt_OBJECT
+PPointArray *	PQt_OBJECT
+PRangeControl *	PQt_OBJECT
+PRect *		PQt_OBJECT
+PRegion *	PQt_OBJECT
+PResizeEvent *	PQt_OBJECT
+PSize *		PQt_OBJECT
+PTimerEvent *	PQt_OBJECT
+PWMatrix *	PQt_OBJECT
+
+pApplication *	pQt_OBJECT
+pButton *	pQt_OBJECT
+pFrame *	pQt_OBJECT
+pLCDNumber *	pQt_OBJECT
+pObject *	pQt_OBJECT
+pPushButton *	pQt_OBJECT
+pRangeControl *	pQt_OBJECT
+pScrollBar *	pQt_OBJECT
+pWidget *	pQt_OBJECT
+
+OUTPUT
+Qt_OBJECT
+    $arg = objectify_ptr((void*)$var, MSTR($type));
+
+PQt_OBJECT
+    $arg = objectify_ptr((void*)$var, MSTR($type), 1);
+
+VQt_OBJECT
+    $arg = objectify_ptr((void*)$var, $var->setQtClassName(CLASS), 1);
+    $var->setQtObject($arg);
+
+INPUT
+Qt_OBJECT
+    $var = ($type)extract_ptr($arg, MSTR($type));
+
+pQt_OBJECT
+    $var = ($type)extract_ptr($arg, MSTR($type));

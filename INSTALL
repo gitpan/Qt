@@ -1,0 +1,37 @@
+Once you have downloaded PerlQt, you should extract it into some
+convienient directory where it will be built.
+
+The first step to building PerlQt is to enter the libperlqt directory
+within the PerlQt source-tree and run the commands:
+
+perl Makefile.PL
+make
+make install
+
+Following that, go into the main PerlQt source dir and type:
+
+perl Makefile.PL
+
+This will announce that makefiles have been created for a couple-dozen
+modules. Next, run
+
+make
+
+And optionally,
+
+make install
+
+Then, you run the tutorials by going into the tutorial's directory
+(t1, for example) and running:
+
+./t1
+
+or, if you didn't install PerlQt:
+
+perl -I../../blib/lib -I../../blib/arch t1
+
+And that's it.
+
+Bug-reports are welcome. Send a report, including the error, to
+jql@accessone.com, and include the output from Perl -V and uname -a so I
+can understand your error better.

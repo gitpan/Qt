@@ -1,0 +1,49 @@
+
+Here is my list of things to do in a random descending list of priority.
+
+* FIX THE MEMORY LEAK! (Probably in virtual functions)
+
+* Get rid of Qt::Hash and replace with something reasonable.
+
+* require 5.004;
+
+* Add tests to check whether THIS and DELETE are valid.
+
+* Allow more data-types to be passed as arguments to signals/slots
+and do minimal argument parsing.
+
+* Get the typemap to read from className and convert to THAT type, not the
+one requested
+
+* Consider the impact of moving all the #include "pqt.h" statements from the
+include-files to the .xs files
+
+* Write a QGlobal::import() that will only initialize enum values if
+they are requested by a module.
+
+* Incorporate operator overloading into QSize/QRect and friends.
+
+* Add tests
+
+* Clean up the enumeration/constant interface.
+
+* Compile everything as one library, and see if there is any benefit.
+
+* Allow connections to closure slots.
+
+* Arbitrary argument-lists (...) between Perl signals and Perl slots.
+
+* Ditch libperlqt and include the functionality into QGlobal after I
+figure out how to get the bootstraps in the other modules to look
+in QGlobal.
+
+* Perhaps split up virtualize and setup a virtual override inheritance tree?
+
+* Completely interface all of the graphical components of Qt.
+
+* Make libperlqt more generic, so as to support other scripting languages?
+
+* Overloaded signals/slots
+
+* Rewrite the whole thing in SWIG, to allow all the other scripting
+languages in the world to bask in the glory of PerlQt.
