@@ -33,10 +33,42 @@ PRangeControl::new(...)
 	croak("Usage: new %s;\nUsage: new %s(minValue, maxValue, lineStep, pageStep, value);", CLASS, CLASS);
 
 void
+QRangeControl::addLine()
+
+void
+QRangeControl::addPage()
+
+int
+QRangeControl::lineStep()
+
+int
+QRangeControl::maxValue()
+
+int
+QRangeControl::minValue()
+
+int
+QRangeControl::pageStep()
+
+void
 QRangeControl::setRange(minValue, maxValue)
     int minValue
     int maxValue
 
 void
+QRangeControl::setSteps(line, page)
+    int line
+    int page
+
+void
 QRangeControl::setValue(value)
     int value
+
+void
+QRangeControl::subtractLine()
+
+void
+QRangeControl::subtractPage()
+
+int
+QRangeControl::value()

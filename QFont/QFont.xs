@@ -64,16 +64,10 @@ BOOT:
 
 PFont *
 PFont::new(family = 0, pointSize = 12, weight = QFont::Normal, italic = FALSE)
-    CASE: items > 1
-	char *family
-	int pointSize
-	int weight
-	bool italic
-    CASE:
-	CODE:
-	RETVAL = new PFont();
-	OUTPUT:
-	RETVAL
+    char *family
+    int pointSize
+    int weight
+    bool italic
 
 bool
 QFont::bold()

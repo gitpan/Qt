@@ -6,11 +6,11 @@ use vars qw($VERSION @ISA);
 require DynaLoader;
 require QGlobal;
 
-require QObject;
+require QWidget;
 
-@ISA = qw(DynaLoader QObject);
+@ISA = qw(DynaLoader QWidget);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 bootstrap QWindow $VERSION;
 
 1;
@@ -24,11 +24,15 @@ QWindow - Interface to the Qt QWindow class
 
 C<use QWindow;>
 
-Inherits QObject.
+Inherits QWidget.
+
+=head2 Member functions
+
+new
 
 =head1 DESCRIPTION
 
-Empty.
+Not much here.
 
 =head1 AUTHOR
 

@@ -12,6 +12,8 @@
 
 #undef bool
 #include "qrangect.h"
+#include "qscrbar.h"
+#include "qslider.h"
 #include "pqt.h"
 
 class QScrollBar;	// For the sake of the typemap

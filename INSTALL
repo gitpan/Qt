@@ -1,9 +1,24 @@
 Once you have downloaded PerlQt, you should extract it into some
 convienient directory where it will be built.
 
-Make sure you have your QTDIR environment-variable set to the main Qt
-directory before attempting to compile PerlQt. The QTDIR environment
-variable is used to find the Qt include files.
+PerlQt uses QTDIR to determine where the Qt includes and stuff are.
+This may be set in the environment with something like
+
+export QTDIR=/usr/lib/qt
+
+or specified on the make command-line with
+
+make QTDIR=/usr/lib/qt
+
+Either way is fine with me.
+
+The configuration of PerlQt is, at this stage, manual. There are two
+relevant files to edit. For libperlqt, edit libperlqt/Makefile.PL and
+change whatever you need to get it to work on your platform. For the rest
+of PerlQt, edit Qt.config. The Qt.config file contains a %QtConfig hash
+which contains values that will be incorporated into all of the module
+Makefile.PL's. The ExtUtils::MakeMaker manpage can help you determine
+which configuration settings you can change.
 
 The first step to building PerlQt is to enter the libperlqt directory
 within the PerlQt source-tree and run the commands:
@@ -16,7 +31,7 @@ Following that, go into the main PerlQt source dir and type:
 
 perl Makefile.PL
 
-This will announce that makefiles have been created for a couple-dozen
+This will announce that makefiles have been created for more than 50
 modules. Next, run
 
 make

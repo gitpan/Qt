@@ -43,6 +43,7 @@ WriteMakefile(
 			QPoint
 			QPointArray
 			QPopupMenu
+			QPrinter
 			QPushButton
 			QRadioButton
 			QRangeControl
@@ -50,10 +51,12 @@ WriteMakefile(
 			QRegion
 			QScrollBar
 			QSize
+			QSlider
 			QTabBar
 			QTabDialog
 			QTableView
 			QTimer
+			QToolTip
 			QWMatrix
 			QWidget
 			QWindow) ],

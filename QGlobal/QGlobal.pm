@@ -8,24 +8,25 @@ require DynaLoader;
 
 @ISA = qw(Exporter DynaLoader);
 @EXPORT = qw(&qRound);
-@EXPORT_OK = qw($AlignLeft $AlignRight $AlignHCenter $AlignTop $AlignBottom
-		$AlignVCenter $AlignCenter $SingleLine $DontClip $ExpandTabs
-		$ShowPrefix $WordBreak $GrayText $DontPrint
+@EXPORT_OK = qw(%Align $SingleLine $DontClip $ExpandTabs $ShowPrefix $WordBreak
+		$GrayText $DontPrint
 
 		%Key $SHIFT $CTRL $ALT $ASCII_ACCEL
 
 		%RasterOp);
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 bootstrap QGlobal $VERSION;
 
-#package Qt::Hash;
-#
-##use SelfLoader;
-#use vars qw(@ISA);
-#require Tie::Hash;
-#
-#@ISA = qw(Tie::StdHash);
+package Qt::Hash;
+
+sub setImmortal {
+    my $self = shift;
+
+    delete $$self{'DELETE'} if exists $$self{'DELETE'};
+
+    return $self;
+}
 
 1;
 __END__
@@ -40,12 +41,18 @@ C<require QGlobal;>
 
 C<use QGlobal qw(...);>
 
-Has no interface, no constructor, no class, no nothing.
+$object = new QClass->setImmortal
 
 =head1 DESCRIPTION
 
-Reading this assumes you care about the internals. Everything in here
-is subject to change at my whim.
+The only relevant function in QGlobal (so far) is setImmortal(). It
+removes the tendency of Perl to free the memory used by an object
+when it goes out of scope. If you create say... a button that can
+live a life of it's own while within a subroutine, that button
+will be killed at the end of the subroutine without setImmortal().
+
+Reading beyond this point implies that you care about the internals.
+Everything in here is subject to change at my whim (and probably already has).
 
 =head2 Object internals
 

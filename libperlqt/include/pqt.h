@@ -21,6 +21,15 @@
 #include "qglobal.h"
 #include "qwindefs.h"
 
+#define pQT_11 10100
+#define pQT_12 10200
+
+#include <qslider.h>    /* Used for version identification purposes */
+
+#ifndef pQT_VERSION     /* if it's defined, it's pQT_11 (1.1) */
+#define pQT_VERSION pQT_12
+#endif  // pQT_VERSION
+
 #if defined(DEBUG)
 /*
  * Perl has an extensive set of DEBUG* macros, it's better to cut off the
@@ -52,5 +61,7 @@ extern SV *safe_hv_fetch(HV *hash, char *key, char *message);
 
 extern char *find_signal(SV *obj, char *signal);
 extern char *find_slot(SV *obj, char *slot);
+
+extern SV *parse_member(SV *member);
 
 #endif  // PQT_H

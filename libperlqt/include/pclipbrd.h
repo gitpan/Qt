@@ -10,6 +10,7 @@
  * README file
  */
 
+#undef bool
 #include "qclipbrd.h"
 #include "ppixmap.h"
 #include "pqt.h"

@@ -7,6 +7,7 @@
  * README file
  */
 
+#undef bool
 #include "qmetaobj.h"
 #include "pobject.h"
 
@@ -22,45 +23,7 @@ declare(QListM,QConnection);
 declare(QListIteratorM,QConnection);
 #endif
 #endif
-/*
-char *find_signal(SV *obj, char *signal) {
-    dSP;
-    int count;
-    SV *ret;
 
-    PUSHMARK(sp);
-    XPUSHs(obj);
-    XPUSHs(sv_2mortal(newSVpv(signal, 0)));
-    PUTBACK;
-
-    count = perl_call_pv("signals::find_signal", G_SCALAR);
-    SPAGAIN;
-    if(count != 1) croak("Bad perl_call_pv, bad");
-    ret = POPs;
-    PUTBACK;
-
-    return SvTRUE(ret) ? SvPV(ret, na) : 0;
-}
-
-char *find_slot(SV *obj, char *slot) {
-    dSP;
-    int count;
-    SV *ret;
-
-    PUSHMARK(sp);
-    XPUSHs(obj);
-    XPUSHs(sv_2mortal(newSVpv(slot, 0)));
-    PUTBACK;
-
-    count = perl_call_pv("slots::find_slot", G_SCALAR);
-    SPAGAIN;
-    if(count != 1) croak("Bad perl_call_pv, bad");
-    ret = POPs;
-    PUTBACK;
-
-    return SvTRUE(ret) ? SvPV(ret, na) : 0;
-}
-*/
 void activate(QObject *self, const char *signal) {
     QConnectionList *clist = ((pObject *)self)->protected_receivers(signal);
     if(!clist || self->signalsBlocked()) return;
@@ -127,8 +90,12 @@ XS(perl_emit_signal) {
     PObject *obj = (PObject *)extract_ptr(ST(0), "QObject");
     if(items == 1)
 	activate(obj, proto);
-    else if(items > 1)
-	activateI(obj, proto, SvIV(ST(1)));
+    else if(items > 1) {
+	if(SvIOK(ST(1)))
+	    activateI(obj, proto, SvIV(ST(1)));
+	else if(SvPOK(ST(1)))
+	    activateI(obj, proto, (IV)SvPV(ST(1), na));
+    }
 }
 
 MODULE = QObject		PACKAGE = signals
@@ -172,8 +139,10 @@ connect(...)
         (QObject *)extract_ptr(ST(virtual_call ? 0 : 2), "QObject");
     QObject *sender =
         (QObject *)extract_ptr(ST(virtual_call ? 1 : 0), "QObject");
-    char *signal = SvPV(ST(virtual_call ? 2 : 1), na);
-    char *member = SvPV(ST(3), na);
+    SV *si = parse_member(ST(virtual_call ? 2 : 1));
+    SV *m = parse_member(ST(3));
+    char *signal = SvPV(si, na);
+    char *member = SvPV(m, na); // SvPV(ST(3), na);
     SV *sig = sv_2mortal(newSViv(SIGNAL_CODE));		// Emulate SIGNAL()
     SV *memb = sv_newmortal();
     char *s = find_signal(ST(virtual_call ? 0 : 2), member);

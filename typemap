@@ -11,7 +11,11 @@ QFont::CharSet		T_ENUM
 QFont::StyleHint	T_ENUM
 QLCDNumber::Mode	T_ENUM
 QPixmap::ColorMode	T_ENUM
+QPrinter::Orientation	T_ENUM
+QPrinter::PageSize	T_ENUM
 QScrollBar::Orientation	T_ENUM
+QSlider::Orientation	T_ENUM
+QSlider::TickSetting	T_ENUM
 QWidget::FocusPolicy	T_ENUM
 
 BGMode		T_ENUM
@@ -66,6 +70,7 @@ QPixmap *	Qt_OBJECT
 QPoint *	Qt_OBJECT
 QPointArray *	Qt_OBJECT
 QPopupMenu *	Qt_OBJECT
+QPrinter *	Qt_OBJECT
 QPushButton *	Qt_OBJECT
 QRadioButton *	Qt_OBJECT
 QRect *		Qt_OBJECT
@@ -73,11 +78,14 @@ QRegion *	Qt_OBJECT
 QResizeEvent *	Qt_OBJECT
 QScrollBar *	Qt_OBJECT
 QSize *		Qt_OBJECT
+QSlider *	Qt_OBJECT
 QTab *		Qt_OBJECT
 QTabBar *	Qt_OBJECT
 QTabDialog *	Qt_OBJECT
 QTimer *	Qt_OBJECT
 QTimerEvent *	Qt_OBJECT
+QToolTip *	Qt_OBJECT
+QToolTipGroup *	Qt_OBJECT
 QWidget *	Qt_OBJECT
 QWMatrix *	Qt_OBJECT
 
@@ -93,6 +101,7 @@ PLCDNumber *	VQt_OBJECT
 PObject *	VQt_OBJECT
 PPushButton *	VQt_OBJECT
 PScrollBar *	VQt_OBJECT
+PSlider *	VQt_OBJECT
 PWidget *	VQt_OBJECT
 
 PAccel *	PQt_OBJECT
@@ -136,6 +145,7 @@ PPixmap *	PQt_OBJECT
 PPoint *	PQt_OBJECT
 PPointArray *	PQt_OBJECT
 PPopupMenu *	PQt_OBJECT
+PPrinter *	PQt_OBJECT
 PRangeControl *	PQt_OBJECT
 PRadioButton *	PQt_OBJECT
 PRect *		PQt_OBJECT
@@ -146,7 +156,10 @@ PTabBar *	PQt_OBJECT
 PTabDialog *	PQt_OBJECT
 PTimer *	PQt_OBJECT
 PTimerEvent *	PQt_OBJECT
+PToolTip *	PQt_OBJECT
+PToolTipGroup *	PQt_OBJECT
 PWMatrix *	PQt_OBJECT
+PWindow *	PQt_OBJECT
 
 pApplication *	pQt_OBJECT
 pButton *	pQt_OBJECT
@@ -195,15 +208,12 @@ Qt_QMenuData_KLUDGE
 Qt_QRangeControl_KLUDGE
     if(sv_derived_from($arg, \"QScrollBar\"))
 	$var = ($type)(QScrollBar *)extract_ptr($arg, MSTR($type));
+    else if(sv_derived_from($arg, \"QSlider\"))
+	$var = ($type)(QSlider *)extract_ptr($arg, MSTR($type));
     else $var = ($type)extract_ptr($arg, MSTR($type));
 
 Qt_QPaintDevice_KLUDGE
     if(sv_derived_from($arg, \"QWidget\"))
 	$var = ($type)(QWidget *)extract_ptr($arg, MSTR($type));
-    else if(sv_derived_from($arg, \"QPixmap\"))
-	$var = ($type)(QPixmap *)extract_ptr($arg, MSTR($type));
-    else if(sv_derived_from($arg, \"QPrinter\"))
-	$var = ($type)(QPrinter *)extract_ptr($arg, MSTR($type));
-    else if(sv_derived_from($arg, \"QPicture\"))
-	$var = ($type)(QPicture *)extract_ptr($arg, MSTR($type));
-    else $var = ($type)extract_ptr($arg, MSTR($type));
+    else
+	$var = ($type)extract_ptr($arg, MSTR($type));

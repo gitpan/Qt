@@ -12,7 +12,7 @@ require QPopupMenu;
 
 @ISA = qw(DynaLoader);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 bootstrap QMenuData $VERSION;
 
 1;
@@ -41,12 +41,14 @@ idAt,
 indexOf,
 insertItem,
 insertSeparator,
+isItemChecked,
 isItemEnabled,
 pixmap,
 removeItem,
 removeItemAt,
 setAccel,
 setId,
+setItemChecked,
 setItemEnabled,
 text,
 updateItem

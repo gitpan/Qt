@@ -13,3 +13,9 @@
 MODULE = QWindow		PACKAGE = QWindow
 
 PROTOTYPES: ENABLE
+
+PWindow *
+PWindow::new(parent = 0, name = 0, f = 0)
+    QWidget *parent
+    char *name
+    WFlags f

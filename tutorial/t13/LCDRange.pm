@@ -32,7 +32,7 @@ sub init {
 		       $Orientation{Horizontal},	# orientation
 		       $self, 'scrollbar');
     my $label = new QLabel($self, 'label');
-    $label->setAlignment($AlignCenter);
+    $label->setAlignment($Align{Center});
     $lcd->connect($sBar, 'valueChanged(int)', 'display(int)');
     $self->connect($sBar, 'valueChanged(int)', 'valueChanged(int)');
 

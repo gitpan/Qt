@@ -8,7 +8,7 @@ require QGlobal;
 
 @ISA = qw(DynaLoader Qt::Hash);
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 bootstrap QRangeControl $VERSION;
 
 1;
@@ -24,33 +24,27 @@ C<use QRangeControl;>
 
 =head2 Member functions
 
-new, setRange, setValue
+new,
+addLine,
+addPage,
+lineStep,
+maxValue,
+minValue,
+pageStep,
+setRange,
+setSteps,
+setValue,
+subtractLine,
+subtractPage,
+value
 
 =head1 DESCRIPTION
 
-=over 4
-
-=item QRangeControl->new()
-
-Direct interface.
-
-=item $rangectl = QRangeControl->new(minValue, maxValue, lineStep, pageStep, value)
-
-Direct interface.
-
-=item $rangectl->setRange(minValue, maxValue)
-
-Direct interface.
-
-=item $rangectl->setValue(value)
-
-Direct interface.
-
-=back
+What you see is what you get
 
 =head1 SEE ALSO
 
-QRangeControl(3qt)
+qrangecontrol(3qt)
 
 =head1 AUTHOR
 

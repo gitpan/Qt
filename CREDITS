@@ -8,3 +8,7 @@ Randy J. Ray
 	- drove me to centralize configuration data to make a single
 configuration modification affect all of PerlQt, hopefully leading a
 path to a configuration script...
+
+Chris Leach
+	- pointed out Solaris' choking on modification of string constants
+in parse_clname()

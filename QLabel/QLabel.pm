@@ -2,9 +2,8 @@ package QLabel;
 
 use strict;
 use vars qw($VERSION @ISA @EXPORT);
-use QGlobal qw($AlignLeft $AlignRight $AlignHCenter $AlignTop $AlignBottom
-	       $AlignVCenter $AlignCenter $SingleLine $DontClip $ExpandTabs
-	       $ShowPrefix $WordBreak $GrayText $DontPrint);
+use QGlobal qw(%Align $SingleLine $DontClip $ExpandTabs $ShowPrefix $WordBreak
+	       $GrayText $DontPrint);
 
 require Exporter;
 require DynaLoader;
@@ -14,11 +13,10 @@ require QPixmap;
 require QSize;
 
 @ISA = qw(Exporter DynaLoader QFrame);
-@EXPORT = qw($AlignLeft $AlignRight $AlignHCenter $AlignTop $AlignBottom
-	     $AlignVCenter $AlignCenter $SingleLine $DontClip $ExpandTabs
-	     $ShowPrefix $WordBreak $GrayText $DontPrint);
+@EXPORT = qw(%Align $SingleLine $DontClip $ExpandTabs $ShowPrefix $WordBreak
+	     $GrayText $DontPrint);
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 bootstrap QLabel $VERSION;
 
 1;
@@ -41,10 +39,12 @@ Requires QPixmap and QSize.
 new,
 alignment,
 autoResize,
+buddy,
 margin,
 pixmap,
 setAlignment,
 setAutoResize,
+setBuddy,
 setMargin,
 setNum,
 setText,
@@ -57,11 +57,13 @@ QLabel has been completely interfaced.
 
 =head1 EXPORTED
 
-The following scalar values are exported into the user's namespace:
+The following variables are exported into the user's namespace:
 
-$AlignLeft $AlignRight $AlignHCenter $AlignTop $AlignBottom $AlignVCenter
-$AlignCenter $SingleLine $DontClip $ExpandTabs $ShowPrefix $WordBreak
+%Align $SingleLine $DontClip $ExpandTabs $ShowPrefix $WordBreak
 $GrayText $DontPrint
+
+The C<%Align> hash contains all the Align* constants without the Align.
+All of these constants are defined in F<qwindefs.h>.
 
 =head1 CAVEATS
 

@@ -127,7 +127,7 @@ sub paintEvent {
     if($$self{'gameEnded'}) {
 	$p->setPen($black);
 	$p->setFont(new QFont('Courier', 48, $Weight{Bold}));
-	$p->drawText($self->rect(), $AlignCenter, 'Game Over');
+	$p->drawText($self->rect(), $Align{Center}, 'Game Over');
     } else {
 	$self->paintShot($p) if $self->isShooting() &&
 	    $updateR->intersects($self->shotRect());

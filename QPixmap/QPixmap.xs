@@ -34,7 +34,7 @@ PPixmap::new(...)
 	RETVAL = new PPixmap();   // Memory leak, fix perhaps?
 	OUTPUT:
 	RETVAL
-    CASE: items > 2 && SvIOK(ST(1))
+    CASE: items > 2 && (SvIOK(ST(1)) || SvNOK(ST(1)))
 	PREINIT:
 	int w = SvIV(ST(1));
 	int h = SvIV(ST(2));
@@ -119,6 +119,18 @@ QPixmap::load(fileName, format = 0, mode = QPixmap::Auto)
     char *fileName
     char *format
     QPixmap::ColorMode mode
+
+bool
+QPixmap::loadFromData(buf, format = 0, mode = QPixmap::Auto)
+    SV *buf
+    char *format
+    QPixmap::ColorMode mode
+    CODE:
+    uint len;
+    uchar *nbuf = (uchar *)SvPV(buf, len);
+    RETVAL = THIS->loadFromData(nbuf, len, format, mode);
+    OUTPUT:
+    RETVAL
 
 bool
 isGloballyOptimized()

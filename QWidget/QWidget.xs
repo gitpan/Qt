@@ -7,18 +7,79 @@
  * README file
  */
 
+#include "pfontmet.h"
 #include "pwidget.h"
 #include "enum.h"
 
-#define STORE_key(key) enumIV(hv, MSTR(key), QWidget::key)
+#define STORE_key(key) enumIV(hv, MSTR(key), QWidget::key ## Focus)
 
 inline void init_enum() {
     HV *hv = perl_get_hv("QWidget::FocusPolicy", TRUE | GV_ADDMULTI);
 
-    STORE_key(NoFocus);
-    STORE_key(TabFocus);
-    STORE_key(ClickFocus);
-    STORE_key(StrongFocus);
+    STORE_key(No);
+    STORE_key(Tab);
+    STORE_key(Click);
+    STORE_key(Strong);
+}
+
+#define STORE_state(key) enumIV(hv, MSTR(key), WState_ ## key)
+#define STORE_type(key) enumIV(hv, MSTR(key), WType_ ## key)
+#define STORE_style(key) enumIV(hv, MSTR(key), WStyle_ ## key)
+#define STORE_flag(key) enumIV(hv, MSTR(key), W ## key)
+
+inline void init_WFlags() {
+    HV *hv;
+    HV *wflags = perl_get_hv("QWidget::WFlags", TRUE | GV_ADDMULTI);
+    HV *state = newHV();
+    HV *type = newHV();
+    HV *style = newHV();
+
+    safe_hv_store(wflags, "State", newRV_noinc((SV *)state));
+    safe_hv_store(wflags, "Type", newRV_noinc((SV *)type));
+    safe_hv_store(wflags, "Style", newRV_noinc((SV *)style));
+
+    hv = state;
+    STORE_state(Created);
+    STORE_state(Disabled);
+    STORE_state(Visible);
+    STORE_state(DoHide);
+    STORE_state(ClickToFocus);
+    STORE_state(TrackMouse);
+    STORE_state(BlockUpdates);
+    STORE_state(PaintEvent);
+    STORE_state(TabToFocus);
+
+    hv = type;
+    STORE_type(TopLevel);
+    STORE_type(Modal);
+    STORE_type(Popup);
+    STORE_type(Desktop);
+
+    hv = style;
+    STORE_style(Customize);
+    STORE_style(NormalBorder);
+    STORE_style(DialogBorder);
+    STORE_style(NoBorder);
+    STORE_style(Title);
+    STORE_style(SysMenu);
+    STORE_style(Minimize);
+    STORE_style(Maximize);
+    STORE_style(MinMax);
+    STORE_style(Tool);
+    STORE_style(Mask);
+
+    hv = wflags;
+    STORE_flag(CursorSet);
+    STORE_flag(DestructiveClose);
+    STORE_flag(PaintDesktop);
+    STORE_flag(PaintUnclipped);
+    STORE_flag(PaintClever);
+    STORE_flag(ConfigPending);
+    STORE_flag(ResizeNoErase);
+    STORE_flag(Recreated);
+    STORE_flag(ExportFontMetrics);
+    STORE_flag(ExportFontInfo);
+    STORE_flag(FocusSet);
 }
 
 MODULE = QWidget	PACKAGE = QWidget
@@ -27,6 +88,7 @@ PROTOTYPES: ENABLE
 
 BOOT:
     init_enum();
+    init_WFlags();
 
 PWidget *
 PWidget::new(parent = 0, name = 0, f = 0)
@@ -110,6 +172,13 @@ PFont *
 QWidget::font()
     CODE:
     RETVAL = new PFont(THIS->font());
+    OUTPUT:
+    RETVAL
+
+PFontMetrics *
+QWidget::fontMetrics()
+    CODE:
+    RETVAL = new PFontMetrics(THIS->fontMetrics());
     OUTPUT:
     RETVAL
 
@@ -363,6 +432,12 @@ QWidget::setBackgroundPixmap(pixmap)
 void
 QWidget::setCaption(caption)
     char *caption
+
+void
+QWidget::setCursor(cursor)
+    QCursor *cursor
+    CODE:
+    THIS->setCursor(*cursor);
 
 void
 QWidget::setEnabled(enabled)

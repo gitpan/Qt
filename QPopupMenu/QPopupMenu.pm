@@ -12,7 +12,7 @@ require QTableView;
 
 @ISA = qw(DynaLoader QTableView QMenuData);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 bootstrap QPopupMenu $VERSION;
 
 1;

@@ -41,8 +41,9 @@ bool
 QMenuData::connectItem(id, receiver, member)
     int id
     QObject *receiver
-    char *member
     CODE:
+    SV *m = parse_member(ST(3));
+    char *member = SvPV(m, na);
     char *s = find_signal(ST(2), member);
     SV *memb = newSViv(s ? SIGNAL_CODE : SLOT_CODE);
     sv_catpv(memb, member);
@@ -62,8 +63,9 @@ bool
 QMenuData::disconnectItem(id, reciever, member)
     int id
     QObject *reciever
-    char *member
     CODE:
+    SV *m = parse_member(ST(3));
+    char *member = SvPV(m, na);
     char *s = find_signal(ST(2), member);
     SV *memb = newSViv(s ? SIGNAL_CODE : SLOT_CODE);
     sv_catpv(memb, member);
@@ -81,7 +83,7 @@ QMenuData::indexOf(id)
 
 int
 QMenuData::insertItem(arg1, ...)
-    CASE: !sv_isobject(ST(1)) && (items == 2 || !sv_isobject(ST(2)))
+    CASE: (items == 2 || !sv_isobject(ST(2))) && !sv_isobject(ST(1))
 	PREINIT:
 	char *text = SvPV(ST(1), na);
 	int id = (items > 2) ? SvIV(ST(2)) : -1;
@@ -90,11 +92,23 @@ QMenuData::insertItem(arg1, ...)
 	RETVAL = THIS->insertItem(text, id, index);
 	OUTPUT:
 	RETVAL
-    CASE: !sv_isobject(ST(1)) && items > 3
+    CASE: items > 2 && !sv_isobject(ST(1)) && sv_isobject(ST(2)) && sv_derived_from(ST(2), "QPopupMenu")
+	PREINIT:
+	char *text = SvPV(ST(1), na);
+	QPopupMenu *popup = pextract(QPopupMenu, 2);
+	int id = (items > 3) ? SvIV(ST(3)) : -1;
+	int index = (items > 4) ? SvIV(ST(4)) : -1;
+	CODE:
+	RETVAL = THIS->insertItem(text, popup, id, index);
+	OUTPUT:
+	RETVAL
+    CASE: items > 3 && !sv_isobject(ST(1))
 	PREINIT:
 	char *text = SvPV(ST(1), na);
 	QObject *receiver = pextract(QObject, 2);
-	char *member = SvPV(ST(3), na);
+//	char *member = SvPV(ST(3), na);
+	SV *m = parse_member(ST(3));
+	char *member = SvPV(m, na);
 	int accel = (items > 4) ? SvIV(ST(4)) : 0;
 	CODE:
 	char *s = find_signal(ST(2), member);
@@ -106,10 +120,10 @@ QMenuData::insertItem(arg1, ...)
 	    if(s) receiver = new pQtSigSlot(ST(2), s);
 	}
 
-	THIS->insertItem(text, receiver, SvPVX(memb), accel);
+	RETVAL = THIS->insertItem(text, receiver, SvPVX(memb), accel);
 	OUTPUT:
 	RETVAL
-    CASE: !sv_isobject(ST(1)) && items > 2
+    CASE: items > 2 && !sv_isobject(ST(1)) 
 	PREINIT:
 	char *text = SvPV(ST(1), na);
 	QPopupMenu *popup = pextract(QPopupMenu, 2);
@@ -139,9 +153,12 @@ QMenuData::insertItem(arg1, ...)
 	OUTPUT:
 	RETVAL
     CASE: items > 3
+	PREINIT:
 	QPixmap *pixmap = pextract(QPixmap, 1);
 	QObject *receiver = pextract(QObject, 2);
-	char *member = SvPV(ST(3), na);
+//	char *member = SvPV(ST(3), na);
+	SV *m = parse_member(ST(3));
+	char *member = SvPV(m, na);
 	int accel = (items > 4) ? SvIV(ST(4)) : 0;
 	CODE:
 	char *s = find_signal(ST(2), member);
@@ -160,6 +177,10 @@ QMenuData::insertItem(arg1, ...)
 void
 QMenuData::insertSeparator(index = -1)
     int index
+
+bool
+QMenuData::isItemChecked(id)
+    int id
 
 bool
 QMenuData::isItemEnabled(id)
@@ -186,6 +207,11 @@ void
 QMenuData::setId(index, id)
     int index
     int id
+
+void
+QMenuData::setItemChecked(id, check)
+    int id
+    bool check
 
 void
 QMenuData::setItemEnabled(id, enable)

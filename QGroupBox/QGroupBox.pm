@@ -1,16 +1,20 @@
 package QGroupBox;
 
 use strict;
-use vars qw($VERSION @ISA);
+use vars qw($VERSION @ISA @EXPORT);
+use QGlobal qw(%Align $SingleLine $DontClip $ExpandTabs $ShowPrefix $WordBreak
+               $GrayText $DontPrint);
 
+require Exporter;
 require DynaLoader;
-require QGlobal;
 
 require QFrame;
 
-@ISA = qw(DynaLoader QFrame);
+@ISA = qw(Exporter DynaLoader QFrame);
+@EXPORT = qw(%Align $SingleLine $DontClip $ExpandTabs $ShowPrefix $WordBreak
+             $GrayText $DontPrint);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 bootstrap QGroupBox $VERSION;
 
 1;
@@ -38,10 +42,14 @@ title
 
 What you see is what you get.
 
-=head1 CAVEATS
+=head1 EXPORTED
 
-The Align constants aren't exported from this class. That's probably more
-of a bug.
+The following variables are exported into the user's namespace:
+
+%Align $SingleLine $DontClip $ExpandTabs $ShowPrefix $WordBreak
+$GrayText $DontPrint
+
+See L<QPainter(3)> for info
 
 =head1 AUTHOR
 

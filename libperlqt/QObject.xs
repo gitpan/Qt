@@ -46,6 +46,7 @@ QMetaData *initMetaData(HV *hv) {
     for(int i = 0; i < keys; i++) {
 	value = hv_iternextsv(hv, &key, &klen);
 	SvREFCNT_inc(value);
+//	warn("member name is '%s'\n", SvPV(value, na));
 	tbl[i].name = SvPV(value, na);
 	tbl[i].ptr = stub_func(tbl[i].name);
     }
@@ -57,10 +58,7 @@ QMetaObject *metaObjectSetup(char *clname) {
     if(hv_exists(MetaObjects, clname, strlen(clname))) {
 	SV **ret = hv_fetch(MetaObjects, clname, strlen(clname), 0);
 	if(ret) {
-//	    ret = hv_fetch((HV *)rv_check(*ret), "MetaObject", 10, 0);
-//	    if(ret) return (QMetaObject *)SvIV(*ret);
 	    QMetaObject *obj = (QMetaObject *)SvIV(*ret);
-//	    warn("returning %p which is a (%p) %s which is derived from (%p) %s which is %p\n", obj, obj->className(), obj->className(), obj->superClassName(), obj->superClassName(), obj->superClass());
 	    return (QMetaObject *)SvIV(*ret);
 	}
 	return NULL;
@@ -79,54 +77,22 @@ QMetaObject *metaObjectSetup(char *clname) {
     superclass = (char *)malloc(strlen(s)+1);
     strcpy(superclass, s);
 
-//    safe_hv_store(MetaObjects, clname, newRV_noinc((SV *)metaData));
-
     svp = hv_fetch(Signals, clname, strlen(clname), 0);
     if(svp) {
 	signalhv = (HV *)rv_check(*svp);
 	signal_keys = HvKEYS(signalhv) > 0 ? HvKEYS(signalhv) : 0;
-//	if(signal_keys > 0) signal_tbl = new QMetaData[signal_keys];
-//	else signal_keys = 0;
     }
     svp = hv_fetch(Slots, clname, strlen(clname), 0);
     if(svp) {
 	slothv = (HV *)rv_check(*svp);
 	slot_keys = HvKEYS(slothv) > 0 ? HvKEYS(slothv) : 0;
-//	if(slot_keys > 0) slot_tbl = new QMetaData[slot_keys];
-//	if(slot_keys < 0) slot_keys = 0;	// Paranoia. They're after me.
-    }
-/*
-    SV *value;
-    char *key;
-    I32 klen;
-
-    if(slothv) {
-	hv_iterinit(slothv);
-	for(int i = 0; i < slot_keys; i++) {
-	    value = hv_iternextsv(slothv, &key, &klen);
-	    SvREFCNT_inc(value);
-	    slot_tbl[i].name = SvPV(value, na);
-	    slot_tbl[i].ptr = (QMember)&pQtSigSlot::sI;  // Change this
-	}
-    }
-    if(signalhv) {
-	hv_iterinit(signalhv);
-	for(int i = 0; i < signal_keys; i++) {
-	    value = hv_iternextsv(signalhv, &key, &klen);
-	    SvREFCNT_inc(value);
-	    signal_tbl[i].name = SvPV(value, na);
-	    signal_tbl[i].ptr = (QMember)&pQtSigSlot::sI;  // Change this
-	}
     }
 
-*/
     slot_tbl = initMetaData(slothv);
     signal_tbl = initMetaData(signalhv);
-//    warn("clname = %s = %p, superclass = %s = %p\n", clname, clname, superclass, superclass);
     metaObj = new QMetaObject(clname, superclass,
 	slot_tbl, slot_keys,
 	signal_tbl, signal_keys);
-//    safe_hv_store(metaData, "MetaObject", newSViv((IV)metaObj));
     safe_hv_store(MetaObjects, clname, newSViv((IV)metaObj));
     return metaObj;
 }

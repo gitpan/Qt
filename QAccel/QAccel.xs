@@ -26,8 +26,9 @@ bool
 QAccel::connectItem(id, receiver, member)
     int id
     QObject *receiver
-    char *member
     CODE:
+    SV *m = parse_member(ST(3));
+    char *member = SvPV(m, na);
     char *s = find_signal(ST(2), member);
     SV *memb = newSViv(s ? SIGNAL_CODE : SLOT_CODE);
     sv_catpv(memb, member);
@@ -47,8 +48,9 @@ bool
 QAccel::disconnectItem(id, reciever, member)
     int id
     QObject *reciever
-    char *member
     CODE:
+    SV *m = parse_member(ST(3));
+    char *member = SvPV(m, na);
     char *s = find_signal(ST(2), member);
     SV *memb = newSViv(s ? SIGNAL_CODE : SLOT_CODE);
     sv_catpv(memb, member);

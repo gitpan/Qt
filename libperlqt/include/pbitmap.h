@@ -10,6 +10,7 @@
  * README file
  */
 
+#undef bool
 #include "qbitmap.h"
 #include "psize.h"
 #include "pwmatrix.h"
@@ -20,6 +21,10 @@ public:
     PBitmap() {}
     PBitmap(int w, int h, bool clear = FALSE) : QBitmap(w, h, clear) {}
     PBitmap(const QSize &size, bool clear = FALSE) : QBitmap(size, clear) {}
+    PBitmap(int w, int h, const uchar *bits, bool isXbitmap = FALSE) :
+	QBitmap(w, h, bits, isXbitmap) {}
+    PBitmap(const QSize &size, const uchar *bits, bool isXbitmap = FALSE) :
+	QBitmap(size, bits, isXbitmap) {}
     PBitmap(const char *fileName, const char *format = 0) :
 	QBitmap(fileName, format) {}
 

@@ -47,6 +47,9 @@ QLabel::alignment()
 bool
 QLabel::autoResize()
 
+QWidget *
+QLabel::buddy()
+
 int
 QLabel::margin()
 
@@ -60,6 +63,10 @@ QLabel::setAlignment(alignment)
 void
 QLabel::setAutoResize(b)
     bool b
+
+void
+QLabel::setBuddy(buddy)
+    QWidget *buddy
 
 void
 QLabel::setMargin(margin)

@@ -12,7 +12,7 @@ require QWMatrix;
 
 @ISA = qw(DynaLoader QPixmap);
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 bootstrap QBitmap $VERSION;
 
 1;
@@ -36,8 +36,7 @@ new, xForm
 
 =head1 DESCRIPTION
 
-The constructor prototypes that take a C<const char *uchar> argument haven't
-been interfaced yet.
+What you see is what you get.
 
 =head1 SEE ALSO
 

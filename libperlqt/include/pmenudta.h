@@ -13,6 +13,8 @@
 #undef bool
 #include "qobject.h"		// Work-around for buglet
 #include "qmenudta.h"
+#include "qpopmenu.h"
+#include "qmenubar.h"
 
 class PMenuData : public QMenuData {
 public:

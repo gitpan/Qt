@@ -2,9 +2,8 @@ package QPainter;
 
 use strict;
 use vars qw($VERSION @ISA @EXPORT);
-use QGlobal qw($AlignLeft $AlignRight $AlignHCenter $AlignTop $AlignBottom
-	       $AlignVCenter $AlignCenter $SingleLine $DontClip $ExpandTabs
-	       $ShowPrefix $WordBreak $GrayText $DontPrint
+use QGlobal qw(%Align $SingleLine $DontClip $ExpandTabs $ShowPrefix $WordBreak
+	       $GrayText $DontPrint
 
 	       %RasterOp);
 
@@ -27,13 +26,12 @@ require QRegion;
 require QWMatrix;
 
 @ISA = qw(Exporter DynaLoader Qt::Hash);
-@EXPORT = qw($AlignLeft $AlignRight $AlignHCenter $AlignTop $AlignBottom
-	     $AlignVCenter $AlignCenter $SingleLine $DontClip $ExpandTabs
-	     $ShowPrefix $WordBreak $GrayText $DontPrint
+@EXPORT = qw(%Align $SingleLine $DontClip $ExpandTabs $ShowPrefix $WordBreak
+	     $GrayText $DontPrint
 
 	     %RasterOp %BGMode);
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 bootstrap QPainter $VERSION;
 
 1;
@@ -124,20 +122,20 @@ Any internal arguments are unavailable to PerlQt programmers.
 
 =head1 EXPORTED
 
-The following scalar variables are exported into the user's namespace on
-behalf of C<QPainter::drawText()>
+The following variables are exported into the user's namespace on
+behalf of C<QPainter::drawText()> from F<qwindefs.h>
 
-$AlignLeft $AlignRight $AlignHCenter $AlignTop $AlignBottom $AlignVCenter
-$AlignCenter $SingleLine $DontClip $ExpandTabs $ShowPrefix $WordBreak
+%Align $SingleLine $DontClip $ExpandTabs $ShowPrefix $WordBreak
 $GrayText $DontPrint
 
-=head1 CAVEATS
-
-Hmm... C<%Align>...
+The C<%BGMode> and C<%RasterOp> hashes are also exported. C<%BGMode>
+contains the values in the BGMode enum in F<qpainter.h> without the
+trailing Mode, and C<%RasterOp> contains the values in the RasterOp
+enum in F<qwindefs.h> without the trailing ROP.
 
 =head1 SEE ALSO
 
-QPainter(3qt), QColor(3), QBrush(3), QFont(3), QPen(3)
+qpainter(3qt), QColor(3), QBrush(3), QFont(3), QPen(3)
 
 =head1 AUTHOR
 

@@ -10,7 +10,7 @@ require QGlobal;
 @ISA = qw(Exporter DynaLoader Qt::Hash);
 @EXPORT = qw(%PDT %PDF &bitBlt);
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 bootstrap QPaintDevice $VERSION;
 
 1;

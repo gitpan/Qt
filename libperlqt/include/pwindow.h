@@ -10,4 +10,13 @@
  * README file
  */
 
+#undef bool
+#include "qwindow.h"
+
+class PWindow : public QWindow {
+public:
+    PWindow(QWidget *parent = 0, const char *name = 0, WFlags f = 0) :
+	QWindow(parent, name, f) {}
+};
+
 #endif  // PWINDOW_H

@@ -8,7 +8,7 @@ require QGlobal;
 
 @ISA = qw(DynaLoader Qt::Hash);
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 bootstrap QObject $VERSION;
 
 sub find_superclass {
@@ -27,6 +27,13 @@ sub getMemberArgs {
 
 #    print "There are @{[scalar @args]} args to $member\n";
     return \@args;
+}
+
+sub parse_member {
+    my $member = shift;
+
+    $member =~ s/(\W)string(\W)/$1char*$2/g;
+    return $member;
 }
 
 package slots;
@@ -59,7 +66,13 @@ sub import {
     shift;
     my $caller = (caller)[0];
 
-    if(@_) { foreach(@_) { /^([^\(]+)/; $slots{$caller}{$1} = $_ } }
+    if(@_) {
+	foreach my $m (@_) {
+	    $_ = QObject::parse_member($m);
+	    /^([^\(]+)/;
+	    $slots{$caller}{$1} = $_;
+	}
+    }
     elsif($^W) { carp "'use slots' without arguments" }
 }
 
@@ -99,10 +112,12 @@ sub import {
     my $caller = (caller)[0];
 
     if(!@_ and $^W) { carp "'use signals' without arguments" }
-    foreach(@_) {
+    foreach my $m (@_) {
+	$_ = QObject::parse_member($m);
 	if(/^(\w+)/) {
 	    addSignal("$caller"."::$1");
 	    $signals{$caller}{$1} = $_;
+#	    print "\$signals{$caller}{$1} = $_;\n";
 #	    print "ADDING $1 = $_ to $caller\n";
 	}
     }

@@ -15,9 +15,9 @@ require QRect;
 require QSize;
 
 @ISA = qw(Exporter DynaLoader QObject QPaintDevice);
-@EXPORT = qw(%FocusPolicy);
+@EXPORT = qw(%FocusPolicy %WFlags);
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 bootstrap QWidget $VERSION;
 
 1;
@@ -126,36 +126,34 @@ mouseMoveEvent, mousePressEvent, mouseReleaseEvent, paintEvent, resizeEvent
 =head1 DESCRIPTION
 
 Every function made available to Perl is meant to be interfaced identically
-to C++ Qt except in the cases stated below.
+to C++ Qt.
 
-=over 4
+=head1 EXPORTED
 
-=item mouseMoveEvent(mouseevent)
+The C<%FocusPolicy> and C<%WFlags> hashes are exported into the user's
+namespace.
 
-This is a virtual function, meant to be reimplemented in your own
-classes. It is only available through QWidget.
+C<%FocusPolicy> contains all of the constants in QWidget that end in Focus.
+That trailing I<Focus> is removed from the end of the keys for brevity.
 
-=item mousePressEvent(mouseevent)
+The C<%WFlags> hash is much more involved. It contains all of the
+C<WState_*>, C<WType_*>, and C<WStyle_*> flags, as well as quite a few
+others that begin with W. You can get a full list of them from
+F<qwindefs.h>.
 
-This is a virtual function, meant to be reimplemented in your own
-classes. It is only available through QWidget.
+But you won't find these constants exactly as they're spelled out in there.
+I've stripped all the leading W's, for example. And all of the constants
+which have an underscore in them have been split up into two components
+based on the underscore. I think a few examples are in order.
 
-=item mouseReleaseEvent(mouseevent)
+    Was: WStyle_NormalBorder
+    Now: $WFlags{Style}{NormalBorder}
+    Was: WState_TrackMouse
+    Now: $WFlags{State}{TrackMouse}
+    Was: WPaintDesktop
+    Now: $WFlags{PaintDesktop}
 
-This is a virtual function, meant to be reimplemented in your own
-classes. It is only available through QWidget.
-
-=item paintEvent(paintevent)
-
-This is a virtual function, meant to be reimplemented in your own
-classes. It is only available through QWidget.
-
-=item resizeEvent(resizeevent)
-
-This is a virtual function, meant to be reimplemented in your own
-classes. It is only available through QWidget.
-
-=back
+You can hopefully figure out the rest yourself.
 
 =head1 SEE ALSO
 

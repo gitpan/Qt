@@ -1,7 +1,15 @@
 This file contains the installation instructrions for libperlqt.
 
-Make sure you have your QTDIR environment-variable set properly
-(to /usr/lib/qt or something). It's important.
+libperlqt need to know your QTDIR with either
+
+export QTDIR=/usr/lib/qt
+
+before compiliation, or with a
+
+make QTDIR=/usr/lib/qt
+
+instead of a plain 'make'
+
 
 First, you need to create a Makefile using the command
 

@@ -15,7 +15,7 @@ require QWMatrix;
 @ISA = qw(Exporter DynaLoader QPaintDevice);
 @EXPORT = qw(%ColorMode);
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 bootstrap QPixmap $VERSION;
 
 1;
@@ -45,6 +45,7 @@ imageFormat,
 isOptimized,
 isQBitmap,
 load,
+loadFromData,
 isGloballyOptimized,
 isNull,
 optimize,
@@ -60,6 +61,9 @@ xForm
 =head1 DESCRIPTION
 
 Whatever has been interfaced is fully interfaced.
+
+The loadFromData function does not take a 'len' argument. All the other
+arguments are normal and in the original order.
 
 =head1 EXPORTED
 

@@ -12,16 +12,20 @@
 #include "qkeycode.h"
 
 #define CONST_init(const) \
-sv_setiv(perl_get_sv(MSTR(QGlobal::const), TRUE | GV_ADDMULTI), const)\
+sv_setiv(perl_get_sv(MSTR(QGlobal::const), TRUE | GV_ADDMULTI), const)
+
+#define STORE_key(key) enumIV(hv, MSTR(key), Align ## key)
 
 inline void init_const() {
-    CONST_init(AlignLeft);
-    CONST_init(AlignRight);
-    CONST_init(AlignHCenter);
-    CONST_init(AlignTop);
-    CONST_init(AlignBottom);
-    CONST_init(AlignVCenter);
-    CONST_init(AlignCenter);
+    HV *hv = perl_get_hv("QGlobal::Align", TRUE | GV_ADDMULTI);
+    STORE_key(Left);
+    STORE_key(Right);
+    STORE_key(HCenter);
+    STORE_key(Top);
+    STORE_key(Bottom);
+    STORE_key(VCenter);
+    STORE_key(Center);
+
     CONST_init(SingleLine);
     CONST_init(DontClip);
     CONST_init(ExpandTabs);
@@ -300,44 +304,3 @@ DESTROY(rv)
 	    safe_hv_fetch(obj, "THIS", "Could not access \"THIS\" element");
 	delete (void *)SvIV(THIS);
     }
-//
-////    warn("Deleting\n");
-//    HV *obj = (HV *)obj_check(rv);
-//    SV **svp = hv_fetch(obj, "this", 4, 0);
-//    if(!svp) croak("Invalid \"this\" element");
-//    HV *self = (HV *)rv_check(*svp);
-//    if(hv_exists(self, "deleteme", 8)) {
-//	svp = hv_fetch(self, "this", 4, 0);
-//	if(!svp) croak("Invalid \"this\" element");
-////	warn("Deleting %p\n", (void *)SvIV(*svp));
-//	delete (void *)SvIV(*svp);
-//    }
-//
-//
-////    warn("DESTROY\n");
-//    HV *hv = (HV *)rv_check(self);
-//    if(SvMAGICAL(hv)) {
-//	MAGIC *mg = mg_find((SV *)hv, 'P');
-////	warn("magical\n");
-//	if(mg)
-//	    SvREFCNT_dec(mg->mg_obj);
-//	return;
-//    }
-//	
-//    if(hv_exists(hv, "deleteme", 8)) {
-//// && hv_exists(hv, "this")) {
-//	SV **svp = hv_fetch(hv, "this", 4, 0);
-//	if(svp) {
-////	    warn("Delete %p\n", (void *)SvIV(*svp));
-//	    delete (void *)SvIV(*svp);
-////	    warn("Deleted a %s\n", HvNAME(SvSTASH((SV *)hv)));
-//	}
-//    }
-
-MODULE = QGlobal		PACKAGE = Qt::Scalar
-
-void
-DESTROY(self)
-    SV *self
-    CODE:
-    delete (void *)SvIV(SvRV(self));
