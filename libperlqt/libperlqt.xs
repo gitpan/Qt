@@ -45,6 +45,8 @@ static char *parse_clname(char *clname) {
 }
 
 SV *objectify_ptr(void *ptr, char *clname, int delete_on_destroy = 0) {
+    if(!ptr) return &sv_undef;
+
     HV *obj = newHV();
 
     safe_hv_store(obj, "THIS", newSViv((IV)ptr));

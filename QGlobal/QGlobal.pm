@@ -16,7 +16,7 @@ require DynaLoader;
 
 		%RasterOp);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 bootstrap QGlobal $VERSION;
 
 #package Qt::Hash;

@@ -14,6 +14,8 @@
 #include "qrangect.h"
 #include "pqt.h"
 
+class QScrollBar;	// For the sake of the typemap
+
 class PRangeControl : public QRangeControl {
 public:
     PRangeControl() {}

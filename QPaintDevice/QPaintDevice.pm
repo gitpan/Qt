@@ -8,9 +8,9 @@ require DynaLoader;
 require QGlobal;
 
 @ISA = qw(Exporter DynaLoader Qt::Hash);
-@EXPORT = qw();
+@EXPORT = qw(%PDT %PDF &bitBlt);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 bootstrap QPaintDevice $VERSION;
 
 1;
@@ -24,9 +24,25 @@ QPaintDevice - Interface to the Qt QPaintDevice class
 
 C<use QPaintDevice;>
 
+=head2 Member functions
+
+devType,
+isExtDev,
+paintingActive
+
 =head1 DESCRIPTION
 
-Gets inherited.
+A very strange class.
+
+=head1 EXPORTED
+
+The C<%PDT> and C<%PDF> hashes are exported into the user's namespace.
+They contain the values of the PD[FT]_* constants.
+
+bitBlt() is also exported, but in a strange twist of Perlian fate,
+it can be called as a member-function.
+
+    $widget->bitBlt(dx, dy, pixmap, sx, sy, sw, sh);
 
 =head1 AUTHOR
 

@@ -11,9 +11,9 @@ require QBitmap;
 require QPoint;
 
 @ISA = qw(Exporter DynaLoader Qt::Hash);
-@EXPORT = qw();
+@EXPORT = qw(%Cursor);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 bootstrap QCursor $VERSION;
 
 1;
@@ -41,6 +41,12 @@ setPos
 =head1 DESCRIPTION
 
 What you see is what you get
+
+=head1 EXPORTED
+
+The C<%Cursor> hash is exported into the user's namespace. It contains
+all of the global cursors (C<arrowCursor>, C<crossCursor>, etc..) without
+the Cursor suffix (C<$Cursor{arrow}>, C<$Cursor{cross}>, etc...)
 
 =head1 SEE ALSO
 

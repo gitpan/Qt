@@ -13,7 +13,7 @@ require QWidget;
 @ISA = qw(Exporter DynaLoader QWidget QRangeControl);
 @EXPORT = qw(%Orientation);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 bootstrap QScrollBar $VERSION;
 
 1;

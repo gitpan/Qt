@@ -11,7 +11,7 @@ require QWidget;
 
 @ISA = qw(DynaLoader QWidget);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 bootstrap QButton $VERSION;
 
 1;

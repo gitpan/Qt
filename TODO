@@ -7,6 +7,11 @@ Here is my list of things to do in a random descending list of priority.
 
 * require 5.004;
 
+* When 1.2 is interfaced, add a QSlider check in the QRangeControl typemap
+entry
+
+* Change all extract_ptr()'s to pextract()'s
+
 * Add tests to check whether THIS and DELETE are valid.
 
 * Allow more data-types to be passed as arguments to signals/slots
@@ -15,8 +20,13 @@ and do minimal argument parsing.
 * Get the typemap to read from className and convert to THAT type, not the
 one requested
 
-* Consider the impact of moving all the #include "pqt.h" statements from the
-include-files to the .xs files
+* Perhaps change from using the THIS element to using a QClassName element
+to allow unexpected multiple-inheritance in Perl modules.
+
+* Find the NULLs and make sure XSRETURN_UNDEF is called to bypass the
+typemap conversion!
+
+* Check for undef in the arguments and/or in the typemaps?
 
 * Write a QGlobal::import() that will only initialize enum values if
 they are requested by a module.
@@ -38,8 +48,6 @@ figure out how to get the bootstraps in the other modules to look
 in QGlobal.
 
 * Perhaps split up virtualize and setup a virtual override inheritance tree?
-
-* Completely interface all of the graphical components of Qt.
 
 * Make libperlqt more generic, so as to support other scripting languages?
 

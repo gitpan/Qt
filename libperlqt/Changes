@@ -1,5 +1,8 @@
 Revision history for Perl extension libperlqt.
 
+0.02  Thu Apr  3 18:33:58 1997
+	- added an INSTALL file
+
 0.01  Tue Mar  4 13:45:04 1997
 	- original version; created by h2xs 1.18
 

@@ -15,7 +15,7 @@ require QWMatrix;
 @ISA = qw(Exporter DynaLoader QPaintDevice);
 @EXPORT = qw(%ColorMode);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 bootstrap QPixmap $VERSION;
 
 1;

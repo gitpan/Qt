@@ -10,7 +10,7 @@ require QGlobal;
 @ISA = qw(Exporter DynaLoader Qt::Hash);
 @EXPORT = qw(%StyleHint %Weight %CharSet);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 bootstrap QFont $VERSION;
 
 1;

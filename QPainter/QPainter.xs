@@ -41,13 +41,7 @@ QPainter::backgroundMode()
 
 bool
 QPainter::begin(paintdevice)
-    CASE: !sv_isobject(ST(1)) || !sv_derived_from(ST(1), "QPaintDevice")
-	CODE:
-	croak("Argument 1 to QPainter::begin() must be an object derived from QPaintDevice");
-    CASE: sv_derived_from(ST(1), "QWidget")
-	QWidget *paintdevice
-    CASE:
-	QPaintDevice *paintdevice
+    QPaintDevice *paintdevice
 
 PRect *
 QPainter::boundingRect(...)

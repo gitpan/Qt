@@ -9,9 +9,31 @@
 
 #include "pcursor.h"
 
+#define STORE_cur(cursor) \
+safe_hv_store(hv, MSTR(cursor), \
+	      objectify_ptr((void *)&cursor ## Cursor, "QCursor"))
+
+inline void init_const() {
+    HV *hv = perl_get_hv("QCursor::Cursor", TRUE | GV_ADDMULTI);
+
+    STORE_cur(arrow);
+    STORE_cur(upArrow);
+    STORE_cur(cross);
+    STORE_cur(wait);
+    STORE_cur(ibeam);
+    STORE_cur(sizeVer);
+    STORE_cur(sizeHor);
+    STORE_cur(sizeBDiag);
+    STORE_cur(sizeFDiag);
+    STORE_cur(sizeAll);
+}
+
 MODULE = QCursor		PACKAGE = QCursor
 
 PROTOTYPES: ENABLE
+
+BOOT:
+    init_const();
 
 PCursor *
 PCursor::new(...)

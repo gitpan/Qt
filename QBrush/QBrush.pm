@@ -11,9 +11,9 @@ require QColor;
 require QPixmap;
 
 @ISA = qw(Exporter DynaLoader Qt::Hash);
-@EXPORT = qw();
+@EXPORT = qw(%BrushStyle);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 bootstrap QBrush $VERSION;
 
 1;

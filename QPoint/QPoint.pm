@@ -1,16 +1,14 @@
 package QPoint;
 
 use strict;
-use vars qw($VERSION @ISA @EXPORT);
+use vars qw($VERSION @ISA);
 
-require Exporter;
 require DynaLoader;
 require QGlobal;
 
-@ISA = qw(Exporter DynaLoader Qt::Hash);
-@EXPORT = qw();
+@ISA = qw(DynaLoader Qt::Hash);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 bootstrap QPoint $VERSION;
 
 1;

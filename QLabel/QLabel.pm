@@ -18,7 +18,7 @@ require QSize;
 	     $AlignVCenter $AlignCenter $SingleLine $DontClip $ExpandTabs
 	     $ShowPrefix $WordBreak $GrayText $DontPrint);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 bootstrap QLabel $VERSION;
 
 1;

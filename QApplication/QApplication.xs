@@ -137,8 +137,8 @@ QWidget *
 QApplication::mainWidget()
 
 bool
-QApplication::notify(reciever, event)
-    QObject *reciever
+QApplication::notify(receiver, event)
+    QObject *receiver
     QEvent *event
 
 QCursor *
@@ -156,11 +156,11 @@ palette()
     RETVAL
 
 void
-postEvent(reciever, event)
-    QObject *reciever
+postEvent(receiver, event)
+    QObject *receiver
     QEvent *event
     CODE:
-    QApplication::postEvent(reciever, event);
+    QApplication::postEvent(receiver, event);
 
 void
 QApplication::processEvents()
@@ -174,11 +174,11 @@ restoreOverrideCursor()
     QApplication::restoreOverrideCursor();
 
 bool
-sendEvent(reciever, event)
-    QObject *reciever
+sendEvent(receiver, event)
+    QObject *receiver
     QEvent *event
     CODE:
-    RETVAL = QApplication::sendEvent(reciever, event);
+    RETVAL = QApplication::sendEvent(receiver, event);
     OUTPUT:
     RETVAL
 

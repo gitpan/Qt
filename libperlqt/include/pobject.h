@@ -29,7 +29,7 @@ protected:
 
 class pObject : public QObject {
 public:
-    QConnectionList *protected_recievers(const char *signal) const {
+    QConnectionList *protected_receivers(const char *signal) const {
 	return receivers(signal);
     }
     void protected_initMetaObject() { initMetaObject(); }

@@ -1,6 +1,10 @@
 Once you have downloaded PerlQt, you should extract it into some
 convienient directory where it will be built.
 
+Make sure you have your QTDIR environment-variable set to the main Qt
+directory before attempting to compile PerlQt. The QTDIR environment
+variable is used to find the Qt include files.
+
 The first step to building PerlQt is to enter the libperlqt directory
 within the PerlQt source-tree and run the commands:
 

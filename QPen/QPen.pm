@@ -12,7 +12,7 @@ require QColor;
 @ISA = qw(Exporter DynaLoader Qt::Hash);
 @EXPORT = qw(%PenStyle);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 bootstrap QPen $VERSION;
 
 1;

@@ -13,7 +13,7 @@ require QWidget;
 @ISA = qw(Exporter DynaLoader QWidget);
 @EXPORT = qw(%QFrame);
 
-$VERSION = '0.01';
+$VERSION = '0.02';
 bootstrap QFrame $VERSION;
 
 1;

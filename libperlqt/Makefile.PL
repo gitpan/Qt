@@ -2,10 +2,10 @@ use ExtUtils::MakeMaker;
 
 WriteMakefile(
     'NAME'	=> 'libperlqt',
-    'VERSION'	=> '0.01',
+    'VERSION'	=> '0.02',
     'LIBS'	=> [''],
     'CC'	=> 'g++',
-    'INC'	=> '-Iinclude -I/usr/lib/qt/include',
+    'INC'	=> '-Iinclude -I$(QTDIR)/include',
     'OBJECT'	=> 'libperlqt$(OBJ_EXT)
 		    virtual$(OBJ_EXT)
 		    sigslot$(OBJ_EXT)

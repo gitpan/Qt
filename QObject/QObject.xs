@@ -62,7 +62,7 @@ char *find_slot(SV *obj, char *slot) {
 }
 */
 void activate(QObject *self, const char *signal) {
-    QConnectionList *clist = ((pObject *)self)->protected_recievers(signal);
+    QConnectionList *clist = ((pObject *)self)->protected_receivers(signal);
     if(!clist || self->signalsBlocked()) return;
     typedef void (QObject::*RT)();
     typedef RT *PRT;
@@ -81,7 +81,7 @@ void activate(QObject *self, const char *signal) {
 }
 
 void activateI(QObject *self, const char *signal, IV param) {
-    QConnectionList *clist = ((pObject *)self)->protected_recievers(signal);
+    QConnectionList *clist = ((pObject *)self)->protected_receivers(signal);
     if(!clist || self->signalsBlocked()) return;
     typedef void (QObject::*RT0)();
     typedef RT0 *PRT0;
@@ -166,9 +166,9 @@ bool
 connect(...)
     PREINIT:
     if(items < 4)
-        croak("Usage: QObject::connect(sender, signal, reciever, member);\nUsage: $reciever->connect(sender, signal, member);");
+        croak("Usage: QObject::connect(sender, signal, receiver, member);\nUsage: $receiver->connect(sender, signal, member);");
     bool virtual_call = sv_isobject(ST(1));
-    QObject *reciever =
+    QObject *receiver =
         (QObject *)extract_ptr(ST(virtual_call ? 0 : 2), "QObject");
     QObject *sender =
         (QObject *)extract_ptr(ST(virtual_call ? 1 : 0), "QObject");
@@ -178,15 +178,15 @@ connect(...)
     SV *memb = sv_newmortal();
     char *s = find_signal(ST(virtual_call ? 0 : 2), member);
     sv_setiv(memb, s ? SIGNAL_CODE : SLOT_CODE);
-    if(s) reciever = new pQtSigSlot(ST(virtual_call ? 0 : 2), s);
+    if(s) receiver = new pQtSigSlot(ST(virtual_call ? 0 : 2), s);
     else {
 	s = find_slot(ST(virtual_call ? 0 : 2), member);
-	if(s) reciever = new pQtSigSlot(ST(virtual_call ? 0 : 2), s);
+	if(s) receiver = new pQtSigSlot(ST(virtual_call ? 0 : 2), s);
     }
     CODE:
     sv_catpv(sig, signal);
     sv_catpv(memb, member);
-    RETVAL = reciever->connect(sender, SvPV(sig, na), SvPV(memb, na));
+    RETVAL = receiver->connect(sender, SvPV(sig, na), SvPV(memb, na));
     OUTPUT:
     RETVAL
 
@@ -195,7 +195,7 @@ disconnect(...)
     CASE: items > 1 && sv_isobject(ST(1))
 	PREINIT:
 	QObject *sender   = (QObject *)extract_ptr(ST(0), "QObject");
-	QObject *reciever = (QObject *)extract_ptr(ST(1), "QObject");
+	QObject *receiver = (QObject *)extract_ptr(ST(1), "QObject");
 	char *member = (items > 2) ? SvPV(ST(2), na) : 0;
 	SV *memb;
 	CODE:
@@ -205,14 +205,14 @@ disconnect(...)
 	    sv_catpv(memb, member);
 	    member = SvPVX(memb);
 	}
-	RETVAL = sender->disconnect(reciever, member);
+	RETVAL = sender->disconnect(receiver, member);
 	OUTPUT:
 	RETVAL
     CASE: items > 1
 	PREINIT:
 	QObject *sender   = (QObject *)extract_ptr(ST(0), "QObject");
 	char *signal	  = (items > 1) ? SvPV(ST(1), na) : 0;
-	QObject *reciever = (items > 2) ?
+	QObject *receiver = (items > 2) ?
 	    (QObject *)extract_ptr(ST(2), "QObject") : 0;
 	char *member	  = (items > 3) ? SvPV(ST(3), na) : 0;
 	SV *sv;
@@ -228,12 +228,12 @@ disconnect(...)
 	    sv_catpv(sv, member);
 	    member = SvPVX(sv);
 	}
-	RETVAL = sender->disconnect(signal, reciever, member);
+	RETVAL = sender->disconnect(signal, receiver, member);
 	OUTPUT:
 	RETVAL
     CASE:
 	CODE:
-	croak("Usage: $sender->disconnect(signal = undef, reciever = undef, member = undef);\nUsage: $sender->disconnect(reciever, member = undef);");
+	croak("Usage: $sender->disconnect(signal = undef, receiver = undef, member = undef);\nUsage: $sender->disconnect(receiver, member = undef);");
 
 void
 QObject::dumpObjectInfo()

@@ -1,5 +1,31 @@
 Revision history for Perl extension Qt.
 
+0.02  Sun Apr  6 22:28:25 1997
+	- Added typemap entries which allow QMenuData, QPaintDevice,
+and QRangeControl methods to work properly when called via sub-classes
+which inherit them and some other class through multiple-inheritance
+
+0.02  Sun Apr  6 19:26:22 1997
+	- Created a Qt.config in the main PerlQt directory which will be
+required by all module Makefile.PL's, and contains user-editable build
+configuration information. 
+
+0.02  Thu Apr  3 14:52:55 1997
+	- added a note in INSTALL about setting QTDIR before compiliation
+
+0.02  Thu Apr  3 10:37:29 1997
+	- changed all references to '/usr/lib/qt' to '$(QTDIR)'
+
+0.02  Thu Apr  3 10:03:53 1997
+	- created a CREDITS file
+
+0.02  Thu Apr  3 09:54:57 1997
+	- updated README to match the 0.01 release-notice, and added a note
+	  about binary incomatibility with perl5.003
+
+0.01  Tue Apr  1 00:00:00 1997
+	- released version 0.01
+
 0.01  Tue Mar  4 13:44:30 1997
 	- original version; created by h2xs 1.18
 

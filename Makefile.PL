@@ -3,26 +3,36 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     'NAME'	=> 'Qt',
     'VERSION_FROM' => 'Qt.pm',
-    'LIBS'	=> ['-lperlqt -lqt'],
-    'CC'	=> 'g++',
-    'INC'	=> '-Ilibperlqt/include -I/usr/lib/qt/include',
     'DIR'	=> [ qw(QAccel
 			QApplication
 			QBitmap
 			QBrush
 			QButton
+			QButtonGroup
+			QCheckBox
 			QClipboard
 			QColor
+			QComboBox
 			QCursor
+			QDialog
 			QEvent
+			QFileDialog
 			QFont
 			QFontInfo
 			QFontMetrics
 			QFrame
 			QGlobal
+			QGroupBox
 			QImage
-			QLabel
 			QLCDNumber
+			QLabel
+			QLayout
+			QLineEdit
+			QListBox
+			QMenuBar
+			QMenuData
+			QMessageBox
+			QMultiLineEdit
 			QObject
 			QPaintDevice
 			QPainter
@@ -32,12 +42,19 @@ WriteMakefile(
 			QPixmap
 			QPoint
 			QPointArray
+			QPopupMenu
 			QPushButton
+			QRadioButton
 			QRangeControl
 			QRect
 			QRegion
 			QScrollBar
 			QSize
+			QTabBar
+			QTabDialog
+			QTableView
+			QTimer
+			QWMatrix
 			QWidget
-			QWMatrix) ],
+			QWindow) ],
 );
